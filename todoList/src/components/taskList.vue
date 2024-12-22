@@ -9,9 +9,19 @@ const props = defineProps({
   },
 })
 
+const emit = defineEmits('edit-Task', 'delete-Task')
+
 const filteredTasks = computed(() => {
   return props.tasks.filter((task) => !task.done)
 })
+
+const editTask = (task) => {
+  emit('edit-Task', task)
+}
+
+const deleteTask = (taskId) => {
+  emit('delete-Task', taskId)
+}
 </script>
 
 <template>
@@ -19,8 +29,8 @@ const filteredTasks = computed(() => {
     <q-page-container class="q-pa-none">
       <section class="q-pa-md flex justify-center">
         <q-list class="column list-Tasks">
-          <q-item class="q-pa-xs" v-for="task in filteredTasks" :key="task.name">
-            <TaskItem :task="task" />
+          <q-item class="q-pa-xs" v-for="task in filteredTasks" :key="task.id">
+            <TaskItem :task="task" @save-edit="editTask" @delete-Task="deleteTask" />
           </q-item>
         </q-list>
       </section>

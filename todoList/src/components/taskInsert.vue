@@ -1,4 +1,22 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+
+const emit = defineEmits('insert-Task')
+
+const newTask = ref('')
+
+const insertTask = () => {
+  if (newTask.value.trim() === '') {
+    return
+  }
+  const task = {
+    title: newTask.value,
+    done: false,
+  }
+  emit('insert-Task', task)
+  newTask.value = ''
+}
+</script>
 
 <template>
   <div class="row q-pa-md">

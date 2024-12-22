@@ -11,21 +11,29 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits('deleteTask', 'saveEdit', 'enableEdit', 'concludeTask')
+const emit = defineEmits('delete-Task', 'save-Edit', 'enableEdit', 'concludeTask')
 
-const newTask = ref(props.task.title)
+const Task = ref(props.task.title)
 
 const isDisabled = ref(true)
 
-const deleteTask = () => {}
+const deleteTask = () => {
+  emit('deleteTask', props.task.id)
+}
 
 const saveEdit = () => {
+  const updateTask = {
+    id: props.task.id,
+    title: Task.value,
+    done: props.task.done,
+  }
+
   isDisabled.value = !isDisabled.value
-  console.log(newTask)
+  emit('save-Edit', updateTask)
 }
 const enableEdit = () => {
   isDisabled.value = !isDisabled.value
-  console.log(newTask)
+  console.log(Task)
 }
 
 const concludeTask = () => {
@@ -38,7 +46,7 @@ const concludeTask = () => {
     <q-input
       filled
       outlined
-      v-model="newTask"
+      v-model="Task"
       :placeholder="task.name"
       :disable="isDisabled"
       class="col custom-placeholder"
