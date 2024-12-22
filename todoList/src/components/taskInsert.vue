@@ -24,7 +24,7 @@ const insertTask = () => {
       filled=""
       outlined=""
       v-model="newTask"
-      placeholder="Add new Task...."
+      placeholder="Adicionar nova tarefa...."
       class="col custom-outlined custom-placeholder"
     />
     <q-btn
@@ -44,8 +44,6 @@ const insertTask = () => {
 }
 
 .custom-outlined {
-  border-radius: 3px 0 0 3px;
-  border: 0.1px solid #000000;
   padding-right: 0 !important;
 }
 

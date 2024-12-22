@@ -23,6 +23,9 @@ class TaskController extends Controller{
             'done.boolean' => 'O campo "feito" deve ser verdadeiro ou falso.',
         ]
     );
+     if (!$request->has('title') || !$request->has('done')) {
+        return response()->json(['error' => 'Dados inválidos.'], 422);
+    }
         $task = Task::create($validated);
         return response()->json($task, 201);
     }

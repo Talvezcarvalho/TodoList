@@ -40,20 +40,43 @@ const changeStatusTask = async (taskId) => {
 
 <template>
   <q-page-container class="taskBody">
-    <InserirTarefa @insert-task="insertTask" />
-    <TaskList
-      :tasks="tasks"
-      @edit-Task="editTask"
-      @delete-Task="deletedTask"
-      @changeStatus-Task="changeStatusTask"
-    />
+    <q-card class="q-my-md">
+      <q-card-section>
+        <h4 class="text-center text-regular">Gerenciar Tarefas</h4>
+      </q-card-section>
+
+      <!-- Componente para inserir nova tarefa -->
+      <q-card-section>
+        <InserirTarefa @insert-task="insertTask" />
+      </q-card-section>
+
+      <!-- Lista de tarefas com TaskList -->
+      <q-card-section>
+        <TaskList
+          :tasks="tasks"
+          @edit-Task="editTask"
+          @delete-Task="deletedTask"
+          @changeStatus-Task="changeStatusTask"
+        />
+        <q-separator class="q-my-md" />
+        <CompletedTaskList
+          :tasks="tasks"
+          @changeStatus-Task="changeStatusTask"
+          class="customList"
+        />
+      </q-card-section>
+    </q-card>
   </q-page-container>
-  <CompletedTaskList :tasks="tasks" @changeStatus-Task="changeStatusTask" />
 </template>
 
 <style scoped>
 .taskBody {
   padding: 0.1em 8em;
   margin: auto;
+  width: 1000px;
+}
+
+.customList {
+  min-height: 0 !important;
 }
 </style>

@@ -22,9 +22,9 @@ const changeStatusTask = (taskId) => {
 
 <template>
   <q-layout view="lHh Lpr lFf">
-    <h1 class="title">Completed tasks</h1>
-    <q-page-container class="q-pa-none">
-      <q-page class="q-pa-md flex justify-center">
+    <h1 class="title">Tarefas Completas</h1>
+    <q-page-container v-if="filteredTasks.length" class="q-pa-none">
+      <q-page class="q-pa-md flex justify-center custom-layout">
         <q-list class="column list-Tasks">
           <q-item class="q-pa-xs" v-for="task in filteredTasks" :key="task.id">
             <TaskItem :task="task" @changeStatus-Task="changeStatusTask" />
@@ -32,6 +32,7 @@ const changeStatusTask = (taskId) => {
         </q-list>
       </q-page>
     </q-page-container>
+    <h4 v-else class="text-h5 text-center">Nenhuma tarefa para mostrar</h4>
   </q-layout>
 </template>
 
@@ -41,5 +42,8 @@ const changeStatusTask = (taskId) => {
   margin-top: 20px;
   font-size: 2em;
   font-weight: bold;
+}
+.custom-layout {
+  min-height: 0 !important;
 }
 </style>

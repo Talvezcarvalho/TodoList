@@ -46,12 +46,22 @@ const changeStatusTask = () => {
 <template>
   <div class="row q-pa-xs listItem">
     <q-input
+      v-if="!isConcluded"
       filled
       outlined
       v-model="Task"
-      :placeholder="task.name"
+      :value="task.name"
       :disable="isDisabled"
-      class="col custom-placeholder"
+      class="col"
+    />
+    <q-input
+      v-if="isConcluded"
+      filled
+      outlined
+      v-model="Task"
+      :value="task.name"
+      :disable="isDisabled"
+      class="text-strike custom-disabled"
     />
 
     <div class="q-gutter-sm" style="display: flex; align-items: stretch">
@@ -73,7 +83,7 @@ const changeStatusTask = () => {
         class="botao"
         color="primary"
       >
-        Save Edit
+        Salvar alterações
       </q-btn>
 
       <q-btn
@@ -112,10 +122,13 @@ const changeStatusTask = () => {
 
 <style scoped>
 .listItem {
-  width: 70vw;
+  width: 100%;
 }
 
-.custom-placeholder ::placeholder {
+.custom-value {
   font-weight: bold;
+}
+.custom-disabled {
+  text-decoration: line-through !important; /* Também aplica ao placeholder */
 }
 </style>
