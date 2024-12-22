@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import TaskItem from './taskItem.vue'
 
 const props = defineProps({
@@ -11,6 +11,19 @@ const props = defineProps({
 
 const emit = defineEmits('edit-Task', 'delete-Task', 'changeStatus-Task')
 
+const isDeleteDialogVisible = ref(false)
+const taskIdToDelete = ref(null)
+
+const showDeleteDialog = (taskId) => {
+  isDeleteDialogVisible.value = true
+  taskIdToDelete.value = taskId
+}
+
+const closeDeleteDialog = () => {
+  isDeleteDialogVisible.value = false
+  taskIdToDelete.value = null
+}
+
 const filteredTasks = computed(() => {
   return props.tasks.filter((task) => !task.done)
 })
@@ -19,8 +32,9 @@ const editTask = (task) => {
   emit('edit-Task', task)
 }
 
-const deleteTask = (taskId) => {
-  emit('delete-Task', taskId)
+const deleteTask = () => {
+  emit('delete-Task', taskIdToDelete.value)
+  closeDeleteDialog()
 }
 
 const changeStatusTask = (taskId) => {
@@ -37,11 +51,23 @@ const changeStatusTask = (taskId) => {
             <TaskItem
               :task="task"
               @save-edit="editTask"
-              @delete-Task="deleteTask"
+              @delete-Task="showDeleteDialog"
               @changeStatus-Task="changeStatusTask"
             />
           </q-item>
         </q-list>
+        <q-dialog v-model="isDeleteDialogVisible">
+          <q-card>
+            <q-card-section>
+              <div class="text-h6">Atenção!</div>
+              <div>Você está prestes a excluir esta tarefa. Esta ação não pode ser desfeita.</div>
+            </q-card-section>
+            <q-card-actions>
+              <q-btn flat label="Cancelar" @click="closeDeleteDialog" />
+              <q-btn flat label="Excluir" color="negative" @click="deleteTask" />
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
       </q-page>
     </q-page-container>
   </q-layout>
