@@ -4,6 +4,7 @@ import InserirTarefa from './taskInsert.vue'
 import TaskList from './taskList.vue'
 
 import { onMounted, ref } from 'vue'
+import CompletedTaskList from './completedTaskList.vue'
 
 const tasks = ref([])
 
@@ -27,15 +28,27 @@ const deletedTask = async (taskId) => {
   console.log(taskId)
   await deleteTaskById(taskId)
   tasks.value = tasks.value.filter((task) => task.id !== taskId)
-  console.log(tasks.value)
+}
+
+const changeStatusTask = async (taskId) => {
+  const task = tasks.value.find((task) => task.id === taskId)
+  task.done = !task.done
+  const editedTask = await updateTask(task)
+  tasks.value = tasks.value.map((t) => (t.id === editedTask.id ? editedTask : t))
 }
 </script>
 
 <template>
-  <section class="taskBody">
+  <q-page-container class="taskBody">
     <InserirTarefa @insert-task="insertTask" />
-    <TaskList :tasks="tasks" @edit-Task="editTask" @delete-Task="deletedTask" />
-  </section>
+    <TaskList
+      :tasks="tasks"
+      @edit-Task="editTask"
+      @delete-Task="deletedTask"
+      @changeStatus-Task="changeStatusTask"
+    />
+  </q-page-container>
+  <CompletedTaskList :tasks="tasks" @changeStatus-Task="changeStatusTask" />
 </template>
 
 <style scoped>

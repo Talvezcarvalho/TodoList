@@ -4,8 +4,10 @@ import NavBar from './components/navBar.vue'
 </script>
 
 <template>
-  <NavBar />
-  <MainLayout />
+  <q-layout>
+    <NavBar />
+    <MainLayout />
+  </q-layout>
 </template>
 
 <style scoped></style>
