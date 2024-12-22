@@ -1,7 +1,7 @@
 <template>
   <q-header class="bg-primary text-white">
     <q-toolbar>
-      <q-toolbar-title class="text-center navbar-title"> TODOLIST </q-toolbar-title>
+      <q-toolbar-title class="text-center navbar-title"> TodoList </q-toolbar-title>
     </q-toolbar>
   </q-header>
 </template>

@@ -22,7 +22,7 @@ const changeStatusTask = (taskId) => {
 
 <template>
   <q-layout view="lHh Lpr lFf">
-    <h1 class="title">Tarefas concluidas</h1>
+    <h1 class="title">Completed tasks</h1>
     <q-page-container class="q-pa-none">
       <q-page class="q-pa-md flex justify-center">
         <q-list class="column list-Tasks">

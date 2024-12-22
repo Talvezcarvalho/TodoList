@@ -46,7 +46,7 @@ const changeStatusTask = (taskId) => {
   <q-layout class="custom-layout">
     <q-page-container class="q-pa-none">
       <q-page class="q-pa-md flex justify-center custom-layout">
-        <q-list class="column list-Tasks">
+        <q-list v-if="filteredTasks.length" class="column list-Tasks">
           <q-item class="q-pa-xs" v-for="task in filteredTasks" :key="task.id">
             <TaskItem
               :task="task"
@@ -56,15 +56,16 @@ const changeStatusTask = (taskId) => {
             />
           </q-item>
         </q-list>
+        <h1 v-else class="text-h5">No tasks to show</h1>
         <q-dialog v-model="isDeleteDialogVisible">
           <q-card>
             <q-card-section>
-              <div class="text-h6">Atenção!</div>
-              <div>Você está prestes a excluir esta tarefa. Esta ação não pode ser desfeita.</div>
+              <div class="text-h6">Attention!</div>
+              <div>You are about to delete this task. This action cannot be undone.</div>
             </q-card-section>
             <q-card-actions>
-              <q-btn flat label="Cancelar" @click="closeDeleteDialog" />
-              <q-btn flat label="Excluir" color="negative" @click="deleteTask" />
+              <q-btn flat label="Cancel" @click="closeDeleteDialog" />
+              <q-btn flat label="Delete" color="negative" @click="deleteTask" />
             </q-card-actions>
           </q-card>
         </q-dialog>
